@@ -1,21 +1,21 @@
 import React from 'react';
-import '../assets/styles/Navigation.css'; // Import the CSS file
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import '../assets/styles/Navigation.css';
 
 function Navigation() {
   return (
     <nav className="navigation">
       <ul className="nav-list">
         <li className="nav-item">
-
+          <Link to="/" className="nav-link">
             Home
-
+          </Link>
         </li>
         <li className="nav-item">
-
+          <Link to="/about" className="nav-link">
             About
-
+          </Link>
         </li>
-        {/* Add more navigation items as needed */}
       </ul>
     </nav>
   );

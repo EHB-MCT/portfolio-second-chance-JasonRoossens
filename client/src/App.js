@@ -1,14 +1,17 @@
 import React from 'react';
-import SneakerList from './components/SneakerList';
-import Navigation from './components/Navigation';
-
+import { Routes, Route } from 'react-router-dom'; // Import Routes and Route
+import Navigation from './components/Navigation'; // Import your Navigation component
+import Home from './pages/Home';
+import About from './pages/About';
 
 function App() {
   return (
     <div>
-      <Navigation />
-      <h1>My Sneaker App</h1>
-      <SneakerList />
+      <Navigation /> {/* Render your navigation component */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
   );
 }
