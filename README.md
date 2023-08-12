@@ -24,6 +24,9 @@ Run the following commands inside this folder:
  npm install
 ```
 ```
+ cd -
+```
+```
  cd client
 ```
 ```
