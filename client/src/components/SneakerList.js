@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../assets/styles/SneakerList.css'; // Import your CSS file
 
 function SneakerList() {
   const [sneakers, setSneakers] = useState([]);
@@ -8,6 +9,9 @@ function SneakerList() {
     color: '',
     price: 0,
   });
+  const [filterBrand, setFilterBrand] = useState('');
+  const [filterColor, setFilterColor] = useState('');
+  const [sortPrice, setSortPrice] = useState('asc');
 
   useEffect(() => {
     fetch('http://localhost:7001/api/sneakers')
@@ -53,22 +57,87 @@ function SneakerList() {
       });
   };
 
+  const handleDelete = id => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this sneaker?');
+    if (confirmDelete) {
+      // Perform API call to delete a sneaker
+      fetch(`http://localhost:7001/api/sneakers/${id}`, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(() => {
+          setSneakers(prevSneakers => prevSneakers.filter(sneaker => sneaker._id !== id));
+        })
+        .catch(error => {
+          console.error('Error deleting sneaker:', error);
+        });
+    }
+  };
+
+  const filteredSneakers = sneakers.filter(sneaker =>
+    sneaker.brand.toLowerCase().includes(filterBrand.toLowerCase()) &&
+    sneaker.color.toLowerCase().includes(filterColor.toLowerCase())
+  );
+
+  const sortedSneakers = filteredSneakers.slice().sort((a, b) => {
+    if (sortPrice === 'asc') {
+      return a.price - b.price;
+    } else {
+      return b.price - a.price;
+    }
+  });
+
   return (
-    <div>
-      <h2>Sneaker List</h2>
-      <ul>
-        {sneakers.map(sneaker => (
-          <li key={sneaker._id}>
-            <p>Brand: {sneaker.brand}</p>
-            <p>Model: {sneaker.model}</p>
-            <p>Color: {sneaker.color}</p>
-            <p>Price: {sneaker.price}</p>
+    <div className="sneaker-list-container">
+      <h2 className="sneaker-list-title">My Sneaker Collection</h2>
+      <div className="filter-sort-container">
+        <div className="filter-container">
+          <label>
+            Filter by Brand:
+            <input
+              type="text"
+              value={filterBrand}
+              onChange={event => setFilterBrand(event.target.value)}
+            />
+          </label>
+        </div>
+        <div className="filter-container">
+          <label>
+            Filter by Color:
+            <input
+              type="text"
+              value={filterColor}
+              onChange={event => setFilterColor(event.target.value)}
+            />
+          </label>
+        </div>
+        <div className="sort-container">
+          <label>
+            Sort by Price:
+            <select
+              value={sortPrice}
+              onChange={event => setSortPrice(event.target.value)}
+            >
+              <option value="asc">Low to high</option>
+              <option value="desc">High to low</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <ul className="sneaker-list">
+        {sortedSneakers.map(sneaker => (
+          <li key={sneaker._id} className="sneaker-item">
+            <p><strong>Brand:</strong> {sneaker.brand}</p>
+            <p><strong>Model:</strong> {sneaker.model}</p>
+            <p><strong>Color:</strong> {sneaker.color}</p>
+            <p><strong>Price:</strong> {sneaker.price}</p>
+            <button className="delete-button" onClick={() => handleDelete(sneaker._id)}>Delete</button>
           </li>
         ))}
       </ul>
       
-      <h2>Create a New Sneaker</h2>
-      <form onSubmit={handleSubmit}>
+      <h2 className="create-title">Add sneaker to collection</h2>
+      <form className="create-form" onSubmit={handleSubmit}>
         <label>
           Brand:
           <input type="text" name="brand" value={newSneaker.brand} onChange={handleInputChange} />
@@ -85,7 +154,7 @@ function SneakerList() {
           Price:
           <input type="number" name="price" value={newSneaker.price} onChange={handleInputChange} />
         </label>
-        <button type="submit">Create Sneaker</button>
+        <button className="create-button" type="submit">Create Sneaker</button>
       </form>
     </div>
   );
