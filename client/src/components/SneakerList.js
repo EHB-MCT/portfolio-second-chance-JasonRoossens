@@ -11,6 +11,7 @@ function SneakerList() {
   });
   const [filterBrand, setFilterBrand] = useState('');
   const [filterColor, setFilterColor] = useState('');
+  const [sortPrice, setSortPrice] = useState('asc');
 
   useEffect(() => {
     fetch('http://localhost:7001/api/sneakers')
@@ -78,9 +79,17 @@ function SneakerList() {
     sneaker.color.toLowerCase().includes(filterColor.toLowerCase())
   );
 
+  const sortedSneakers = filteredSneakers.slice().sort((a, b) => {
+    if (sortPrice === 'asc') {
+      return a.price - b.price;
+    } else {
+      return b.price - a.price;
+    }
+  });
+
   return (
     <div className="sneaker-list-container">
-      <h2 className="sneaker-list-title">Sneaker List</h2>
+      <h2 className="sneaker-list-title">My Sneaker Collection</h2>
       <div className="filter-sort-container">
         <div className="filter-container">
           <label>
@@ -102,9 +111,21 @@ function SneakerList() {
             />
           </label>
         </div>
+        <div className="sort-container">
+          <label>
+            Sort by Price:
+            <select
+              value={sortPrice}
+              onChange={event => setSortPrice(event.target.value)}
+            >
+              <option value="asc">Low to high</option>
+              <option value="desc">High to low</option>
+            </select>
+          </label>
+        </div>
       </div>
       <ul className="sneaker-list">
-        {filteredSneakers.map(sneaker => (
+        {sortedSneakers.map(sneaker => (
           <li key={sneaker._id} className="sneaker-item">
             <p><strong>Brand:</strong> {sneaker.brand}</p>
             <p><strong>Model:</strong> {sneaker.model}</p>
@@ -115,7 +136,7 @@ function SneakerList() {
         ))}
       </ul>
       
-      <h2 className="create-title">Create a New Sneaker</h2>
+      <h2 className="create-title">Add sneaker to collection</h2>
       <form className="create-form" onSubmit={handleSubmit}>
         <label>
           Brand:
