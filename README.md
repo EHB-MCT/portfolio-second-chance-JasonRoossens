@@ -34,3 +34,7 @@ Run the following commands inside this folder:
 ```
 ```
  docker-compose build
+ ```
+ ```
+ docker-compose up
+ ```
