@@ -1,0 +1,68 @@
+/* SneakerList.css */
+
+.sneaker-list-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+  }
+  
+  .sneaker-list-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .sneaker-list {
+    display: flex; /* Use a flex container */
+    flex-wrap: wrap; /* Allow items to wrap to a new row */
+    list-style: none;
+    padding: 0;
+    margin: 0 -10px; /* Add negative margin to create spacing between items */
+  }
+  
+  .sneaker-item {
+    width: calc(23% - 20px); /* Set width to fit 4 items in a row */
+    margin: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .delete-button {
+    background-color: #ff5757;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: auto;
+  }
+  
+  .create-title {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .create-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .create-button {
+    background-color: #00bfff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-top: 10px;
+  }
+  
