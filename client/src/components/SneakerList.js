@@ -9,6 +9,8 @@ function SneakerList() {
     color: '',
     price: 0,
   });
+  const [filterBrand, setFilterBrand] = useState('');
+  const [filterColor, setFilterColor] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:7001/api/sneakers')
@@ -71,11 +73,38 @@ function SneakerList() {
     }
   };
 
+  const filteredSneakers = sneakers.filter(sneaker =>
+    sneaker.brand.toLowerCase().includes(filterBrand.toLowerCase()) &&
+    sneaker.color.toLowerCase().includes(filterColor.toLowerCase())
+  );
+
   return (
     <div className="sneaker-list-container">
       <h2 className="sneaker-list-title">Sneaker List</h2>
+      <div className="filter-sort-container">
+        <div className="filter-container">
+          <label>
+            Filter by Brand:
+            <input
+              type="text"
+              value={filterBrand}
+              onChange={event => setFilterBrand(event.target.value)}
+            />
+          </label>
+        </div>
+        <div className="filter-container">
+          <label>
+            Filter by Color:
+            <input
+              type="text"
+              value={filterColor}
+              onChange={event => setFilterColor(event.target.value)}
+            />
+          </label>
+        </div>
+      </div>
       <ul className="sneaker-list">
-        {sneakers.map(sneaker => (
+        {filteredSneakers.map(sneaker => (
           <li key={sneaker._id} className="sneaker-item">
             <p><strong>Brand:</strong> {sneaker.brand}</p>
             <p><strong>Model:</strong> {sneaker.model}</p>
