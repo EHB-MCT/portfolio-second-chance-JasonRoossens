@@ -14,7 +14,7 @@ Install [Docker Compose](https://docs.docker.com/compose/install/)
 
 Download this folder as a .zip file.
 
-Remove TEMPLATE from TEMPLATE.env__ name to create the .env file inside the server directory.
+Remove TEMPLATE from TEMPLATE.env to create the .env file inside the server directory. Add your PORT & DB_URI. If you want to use my database use DB_URI=mongodb+srv://jason:jason@cluster0.qsxzg.mongodb.net/Development5?retryWrites=true&w=majority
 
 Run the following commands inside this folder:
 ```
