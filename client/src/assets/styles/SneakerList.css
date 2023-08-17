@@ -128,3 +128,8 @@
     border-color: #007bff;
   }
   
+  .sneaker-image {
+    width: 150px; /* Set your desired width */
+    height: auto; /* Automatically adjust height to maintain aspect ratio */
+    margin: auto;
+  }
