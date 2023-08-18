@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import '../assets/styles/Navigation.css';
+import '../assets/styles/navigation.css';
 
 function Navigation() {
   return (
@@ -8,12 +8,12 @@ function Navigation() {
       <ul className="nav-list">
         <li className="nav-item">
           <Link to="/" className="nav-link">
-            Home
+          <strong>Home</strong>
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/about" className="nav-link">
-            About
+          <strong>About</strong>
           </Link>
         </li>
       </ul>
@@ -21,4 +21,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default Navigation; 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../assets/styles/SneakerList.css'; // Import your CSS file
+import '../assets/styles/sneakerList.css'; // Import your CSS file
 
 function SneakerList() {
   const [sneakers, setSneakers] = useState([]);
@@ -8,10 +8,11 @@ function SneakerList() {
     model: '',
     color: '',
     price: 0,
+    image: '', // Add image property
   });
   const [filterBrand, setFilterBrand] = useState('');
   const [filterColor, setFilterColor] = useState('');
-  const [sortPrice, setSortPrice] = useState('asc');
+  const [sortPrice, setSortPrice] = useState('desc');
 
   useEffect(() => {
     fetch('http://localhost:7001/api/sneakers')
@@ -50,6 +51,7 @@ function SneakerList() {
           model: '',
           color: '',
           price: 0,
+          image: '', // Reset image field
         });
       })
       .catch(error => {
@@ -80,15 +82,37 @@ function SneakerList() {
   );
 
   const sortedSneakers = filteredSneakers.slice().sort((a, b) => {
-    if (sortPrice === 'asc') {
-      return a.price - b.price;
-    } else {
-      return b.price - a.price;
-    }
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return sortPrice === 'asc' ? dateA - dateB : dateB - dateA;
   });
 
   return (
     <div className="sneaker-list-container">
+      <h2 className="create-title">Add a sneaker to your collection</h2>
+      <form className="create-form" onSubmit={handleSubmit}>
+        <label>
+          Brand:
+          <input type="text" name="brand" value={newSneaker.brand} onChange={handleInputChange} />
+        </label>
+        <label>
+          Model:
+          <input type="text" name="model" value={newSneaker.model} onChange={handleInputChange} />
+        </label>
+        <label>
+          Color:
+          <input type="text" name="color" value={newSneaker.color} onChange={handleInputChange} />
+        </label>
+        <label>
+          Price:
+          <input type="number" name="price" value={newSneaker.price} onChange={handleInputChange} />
+        </label>
+        <label>
+          Image URL:
+          <input type="text" name="image" value={newSneaker.image} onChange={handleInputChange} />
+        </label>
+        <button className="create-button" type="submit">Add Sneaker</button>
+      </form>
       <h2 className="sneaker-list-title">My Sneaker Collection</h2>
       <div className="filter-sort-container">
         <div className="filter-container">
@@ -113,13 +137,13 @@ function SneakerList() {
         </div>
         <div className="sort-container">
           <label>
-            Sort by Price:
+            Sort by created at:
             <select
               value={sortPrice}
               onChange={event => setSortPrice(event.target.value)}
-            >
-              <option value="asc">Low to high</option>
-              <option value="desc">High to low</option>
+            > 
+              <option value="desc">Newest</option>
+              <option value="asc">Oldest</option>
             </select>
           </label>
         </div>
@@ -127,35 +151,18 @@ function SneakerList() {
       <ul className="sneaker-list">
         {sortedSneakers.map(sneaker => (
           <li key={sneaker._id} className="sneaker-item">
+            {sneaker.image && <img src={sneaker.image} alt={`${sneaker.brand} ${sneaker.model}`} className="sneaker-image" />}
             <p><strong>Brand:</strong> {sneaker.brand}</p>
             <p><strong>Model:</strong> {sneaker.model}</p>
             <p><strong>Color:</strong> {sneaker.color}</p>
-            <p><strong>Price:</strong> {sneaker.price}</p>
+            <p><strong>Price:</strong> {sneaker.price}</p>   
+            <p><strong>Created at:</strong> {new Date(sneaker.createdAt).toLocaleString()}</p>
             <button className="delete-button" onClick={() => handleDelete(sneaker._id)}>Delete</button>
           </li>
         ))}
       </ul>
       
-      <h2 className="create-title">Add sneaker to collection</h2>
-      <form className="create-form" onSubmit={handleSubmit}>
-        <label>
-          Brand:
-          <input type="text" name="brand" value={newSneaker.brand} onChange={handleInputChange} />
-        </label>
-        <label>
-          Model:
-          <input type="text" name="model" value={newSneaker.model} onChange={handleInputChange} />
-        </label>
-        <label>
-          Color:
-          <input type="text" name="color" value={newSneaker.color} onChange={handleInputChange} />
-        </label>
-        <label>
-          Price:
-          <input type="number" name="price" value={newSneaker.price} onChange={handleInputChange} />
-        </label>
-        <button className="create-button" type="submit">Create Sneaker</button>
-      </form>
+      
     </div>
   );
 }
