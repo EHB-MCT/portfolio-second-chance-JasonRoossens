@@ -14,7 +14,7 @@ Install [Docker Compose](https://docs.docker.com/compose/install/)
 
 Download this folder as a .zip file.
 
-Remove TEMPLATE from TEMPLATE.env to create the .env file inside the server directory. Add your PORT & DB_URI.
+Remove TEMPLATE from TEMPLATE.env to create the .env file inside the server directory.
 
 Run the following commands inside this folder:
 ```
