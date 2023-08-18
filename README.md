@@ -11,14 +11,13 @@
 cd server
 npm install
 cd -
-
 cd client
 npm install
 
 docker-compose build
 docker-compose up
 ```
-## routes
+## Routes
 ### Backend
 
 - GET
@@ -62,7 +61,7 @@ http://localhost:3000
 
 ## Used dependencies
 
- ## Server
+ ### Server
 - body-parser
 - cors
 - dotenv
@@ -70,11 +69,11 @@ http://localhost:3000
 - mongodb
 - mongoose
 - nodemon
- ## Server (testing) 
+ ### Server (testing) 
 - jest
 - supertest
 
- ## client
+ ### client
 - @testing-library/react
 - @testing-library/user-event
 - react
@@ -82,7 +81,3 @@ http://localhost:3000
 - react-router-dom
 - react-scripts
 - web-vitals
-
-
-
-
