@@ -1,40 +1,88 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/DhYPBlwE)
-# Portfolio
-## Used services
-
-Client: React
-
-Server: Node, Express, MongoDB
-
+# My Ultimate Sneaker Collection
 ## Installation
 
-Install [Docker](https://docs.docker.com/engine/install/) or [Docker Desktop](https://docs.docker.com/desktop/)
+1. Install [Docker](https://docs.docker.com/engine/install/) or [Docker Desktop](https://docs.docker.com/desktop/)
+2. Install [Docker Compose](https://docs.docker.com/compose/install/)
+3. Download this folder as a .zip file.
+4. Remove TEMPLATE from TEMPLATE.env to create the .env file inside the server directory.
+5. Run the following commands inside this folder:
 
-Install [Docker Compose](https://docs.docker.com/compose/install/)
+```bash
+cd server
+npm install
+cd -
 
-Download this folder as a .zip file.
+cd client
+npm install
 
-Remove TEMPLATE from TEMPLATE.env to create the .env file inside the server directory.
+docker-compose build
+docker-compose up
+```
+## routes
+### Backend
 
-Run the following commands inside this folder:
+- GET
+All sneakers
 ```
- cd server
+http://localhost:7001/api/sneakers
 ```
+
+Sneaker by id
 ```
- npm install
+http://localhost:7001/api/sneakers/{id}
 ```
+
+- POST
+Create sneaker
 ```
- cd -
+http://localhost:7001/api/sneakers
 ```
+
+- PUT
+Update sneaker by id
 ```
- cd client
+http://localhost:7001/api/sneakers/{id}
 ```
+
+- DELETE
+Delete sneaker by id
 ```
- npm install
+http://localhost:7001/api/sneakers/{id}
 ```
+### Frontend
+
+My Ultimate Sneaker Collection
 ```
- docker-compose build
- ```
- ```
- docker-compose up
- ```
+http://localhost:3000
+```
+## Used services
+
+- Client: React
+- Server: Node, Express, MongoDB
+
+## Used dependencies
+
+- ## Server
+- body-parser
+- cors
+- dotenv
+- express
+- mongodb
+- mongoose
+- nodemon
+- ## Server (testing) 
+- jest
+- supertest
+
+- ## client
+- @testing-library/react
+- @testing-library/user-event
+- react
+- react-dom
+- react-router-dom
+- react-scripts
+- web-vitals
+
+
+
+
