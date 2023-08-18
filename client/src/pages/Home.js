@@ -1,5 +1,5 @@
 import React from 'react';
-import SneakerList from '../components/sneakerList';
+import SneakerList from '../components/sneakerList.js';
 
 function Home() {
   return <div>
