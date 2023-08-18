@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom'; // Import Routes and Route
-import Navigation from './components/Navigation'; // Import your Navigation component
-import Home from './pages/Home';
-import About from './pages/About';
+import Navigation from './components/navigation'; // Import your Navigation component
+import Home from './pages/home';
+import About from './pages/about';
 
 
 
