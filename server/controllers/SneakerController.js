@@ -1,4 +1,4 @@
-const Sneaker = require('../models/sneaker');
+const Sneaker = require('../models/Sneaker');
 
 // Controller methods for CRUD operations
 
