@@ -62,7 +62,7 @@ http://localhost:3000
 
 ## Used dependencies
 
-- ## Server
+ ## Server
 - body-parser
 - cors
 - dotenv
@@ -70,11 +70,11 @@ http://localhost:3000
 - mongodb
 - mongoose
 - nodemon
-- ## Server (testing) 
+ ## Server (testing) 
 - jest
 - supertest
 
-- ## client
+ ## client
 - @testing-library/react
 - @testing-library/user-event
 - react
