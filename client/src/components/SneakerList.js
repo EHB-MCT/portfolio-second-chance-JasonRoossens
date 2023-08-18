@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../assets/styles/SneakerList.css'; // Import your CSS file
+import '../assets/styles/sneakerList.css'; // Import your CSS file
 
 function SneakerList() {
   const [sneakers, setSneakers] = useState([]);
@@ -89,6 +89,30 @@ function SneakerList() {
 
   return (
     <div className="sneaker-list-container">
+      <h2 className="create-title">Add a sneaker to your collection</h2>
+      <form className="create-form" onSubmit={handleSubmit}>
+        <label>
+          Brand:
+          <input type="text" name="brand" value={newSneaker.brand} onChange={handleInputChange} />
+        </label>
+        <label>
+          Model:
+          <input type="text" name="model" value={newSneaker.model} onChange={handleInputChange} />
+        </label>
+        <label>
+          Color:
+          <input type="text" name="color" value={newSneaker.color} onChange={handleInputChange} />
+        </label>
+        <label>
+          Price:
+          <input type="number" name="price" value={newSneaker.price} onChange={handleInputChange} />
+        </label>
+        <label>
+          Image URL:
+          <input type="text" name="image" value={newSneaker.image} onChange={handleInputChange} />
+        </label>
+        <button className="create-button" type="submit">Add Sneaker</button>
+      </form>
       <h2 className="sneaker-list-title">My Sneaker Collection</h2>
       <div className="filter-sort-container">
         <div className="filter-container">
@@ -138,30 +162,7 @@ function SneakerList() {
         ))}
       </ul>
       
-      <h2 className="create-title">Add sneaker to collection</h2>
-      <form className="create-form" onSubmit={handleSubmit}>
-        <label>
-          Brand:
-          <input type="text" name="brand" value={newSneaker.brand} onChange={handleInputChange} />
-        </label>
-        <label>
-          Model:
-          <input type="text" name="model" value={newSneaker.model} onChange={handleInputChange} />
-        </label>
-        <label>
-          Color:
-          <input type="text" name="color" value={newSneaker.color} onChange={handleInputChange} />
-        </label>
-        <label>
-          Price:
-          <input type="number" name="price" value={newSneaker.price} onChange={handleInputChange} />
-        </label>
-        <label>
-          Image URL:
-          <input type="text" name="image" value={newSneaker.image} onChange={handleInputChange} />
-        </label>
-        <button className="create-button" type="submit">Create Sneaker</button>
-      </form>
+      
     </div>
   );
 }
