@@ -7,9 +7,6 @@ on:
   push:
     branches: [ main ]
     
-env:
-  PORT: 3000
-
 jobs:
 
  test:
@@ -22,6 +19,7 @@ jobs:
         run: |
           echo "PORT=$PORT" >> .env
           echo "DB_URI=${{ secrets.DB_URI }}" >> .env
+          cat .env
       
       - name: run npm install
         run: |
