@@ -1,9 +1,55 @@
-const app = require("../index.js");
-const supertest = require("supertest");
-const request = supertest(app);
-const port = 2001;
+const request = require("supertest");
 
-describe("Integration Tests", () => {
+const app = require("../index.js");
+
+describe('GET /ping', function() {
+  it('responds with pong', function(done) {
+    request(app)
+      .get('/ping')
+      .expect(200, "pong", done);
+  });
+});
+
+describe('POST /api/sneakers', function() {
+  it('responds with json', function(done) {
+    const sneakerData = {
+      brand: "Nike",
+      model: "Air Max",
+      color: "Black",
+      price: 150,
+    };
+    request(app)
+      .post('/api/sneakers')
+      .send(sneakerData)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(201)
+      .end(function(err, res) {
+        if (err) return done(err);
+        return done();
+      });
+  });
+});
+
+
+
+/* async function testPost(){
+  const sneakerData = {
+    brand: "Nike",
+    model: "Air Max",
+    color: "Black",
+    price: 150,
+  };
+  
+  const response = await request.post("/api/sneakers").send(sneakerData);
+  expect(response.status).toBe(201);
+}
+
+testPost() */
+
+
+
+/* describe("Integration Tests", () => {
   // False | Test cases for different scenarios
 
   describe("Create Sneaker", () => {
@@ -29,4 +75,4 @@ describe("Integration Tests", () => {
       expect(Array.isArray(response.body)).toBe(true);
     });
   });
-});
+});*/

@@ -10,18 +10,23 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
 
+app.get('/ping', function(req, res) {
+  res.status(200).send('pong');
+});
+
 // Basic route
 app.get('/', (req, res) => {
   res.status(300).redirect('/info.html');
 });
-
-// Connect to the database
-connectDB().then(() => {
   // Use the sneaker routes
   app.use('/api/sneakers', sneakerRoutes);
 
+//  Connect to the database
+connectDB().then(() => {
   // Start the server after the database connection is established
   app.listen(port, () => {
-    console.log(`API is listening at http://localhost:${port}`);
+     console.log(`API is listening at http://localhost:${port}`);
   });
 });
+
+module.exports = app
