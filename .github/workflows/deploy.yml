@@ -17,14 +17,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: 'Create env file'
-          
-        run: |
-          echo "PORT=$PORT" >> .env
-          echo "DB_URI=${{ secrets.DB_URI }}" >> .env
-          cat .env
-          
       
       - name: run npm install
         run: |
@@ -32,11 +24,11 @@ jobs:
           npm ci
           
       - name: run tests
-      with: # Set the secret as an input
-      DB_URI: ${{ secrets.DB_URI }}
-    env: # Or as an environment variable
-      PORT: ${{ secrets.PORT }}
-        run: |
+        with: # Set the secret as an input
+          DB_URI: ${{ secrets.DB_URI }}
+        env: # Or as an environment variable
+          PORT: ${{ secrets.PORT }}
+      run: |
           cd server
           npm run test
  
