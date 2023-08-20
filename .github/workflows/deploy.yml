@@ -12,7 +12,8 @@ env:
     
 jobs:
 
- test:
+ 
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,13 +25,13 @@ jobs:
           npm ci
           
       - name: run tests
-        with: # Set the secret as an input
-          DB_URI: ${{ secrets.DB_URI }}
-        env: # Or as an environment variable
+        env: 
           PORT: ${{ secrets.PORT }}
-      run: |
+          DB_URI: ${{ secrets.DB_URI }}
+        run: |
           cd server
           npm run test
+
  
 #  build:
 #     needs: test
