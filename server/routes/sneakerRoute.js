@@ -1,7 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
-const sneakerController = require('../controllers/SneakerController');
+const sneakerController = require('../controllers/sneakerController');
 
 // Define routes for CRUD operations
 
