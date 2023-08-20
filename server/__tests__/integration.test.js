@@ -29,7 +29,28 @@ describe('POST /api/sneakers', function() {
         return done();
       });
   });
+
+  it('responds with 400 if input is missing', function(done) {
+    const sneakerData = {
+      model: "Air Max",
+      color: "Black",
+      price: 150,
+    };
+    request(app)
+      .post('/api/sneakers')
+      .send(sneakerData)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(400)
+      .end(function(err, res) {
+        if (err) return done(err);
+        return done();
+      });
+  });
 });
+
+
+
 
 
 

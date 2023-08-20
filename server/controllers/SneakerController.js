@@ -2,11 +2,30 @@ const Sneaker = require('../models/Sneaker');
 
 // Controller methods for CRUD operations
 
+const validateBodyInputs = (body) => {
+  const { brand } = body
+  const errors = []
+  
+  if (!brand) errors.push('brand')
+
+  return errors
+}
+exports.validateBodyInputs = validateBodyInputs
+
+
 // Create a new sneaker
 exports.createSneaker = async (req, res) => {
   try {
-    const newSneaker = await Sneaker.create(req.body);
-    res.status(201).json(newSneaker);
+    const errors = validateBodyInputs(req.body)
+
+    if (errors.length > 0) {
+      res.status(400).json({
+        errors
+      });
+    } else {
+      const newSneaker = await Sneaker.create(req.body);
+      res.status(201).json(newSneaker);     
+    }
   } catch (error) {
     res.status(500).json({ error: 'Could not create sneaker' });
   }
