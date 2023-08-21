@@ -1,6 +1,16 @@
 const request = require("supertest");
-
+const mongoose = require('mongoose');
 const app = require("../index.js");
+
+beforeAll(done => {
+  done()
+})
+
+afterAll(done => {
+  // Closing the DB connection allows Jest to exit successfully.
+  mongoose.connection.close()
+  done()
+})
 
 describe('GET /ping', function() {
   it('responds with pong', function(done) {

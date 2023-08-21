@@ -6,22 +6,19 @@ on:
   # Triggers the workflow on push request events but only in the the master branch
   push:
     branches: [ main ]
-    
-env:
-  PORT: 3000
 
+env:
+    PORT: 7001
+    
 jobs:
 
- test:
+ 
+  test:
     runs-on: ubuntu-latest
+    environment: test
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: 'Create env file'
-        run: |
-          echo "PORT=$PORT" >> .env
-          echo "DB_URI=${{ secrets.DB_URI }}" >> .env
       
       - name: run npm install
         run: |
@@ -29,9 +26,13 @@ jobs:
           npm ci
           
       - name: run tests
+        env: 
+          PORT: ${{ secrets.PORT }}
+          DB_URI: ${{ secrets.DB_URI }}
         run: |
           cd server
           npm run test
+
  
 #  build:
 #     needs: test
