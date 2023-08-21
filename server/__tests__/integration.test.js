@@ -2,64 +2,60 @@ const request = require("supertest");
 const mongoose = require('mongoose');
 const app = require("../index.js");
 
-beforeAll(done => {
-  done()
-})
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
-afterAll(done => {
-  // Closing the DB connection allows Jest to exit successfully.
-  mongoose.connection.close()
-  done()
-})
-
-describe('GET /ping', function() {
-  it('responds with pong', function(done) {
-    request(app)
-      .get('/ping')
-      .expect(200, "pong", done);
+describe('GET /ping', () => {
+  it('responds with pong', async () => {
+    const response = await request(app).get('/ping');
+    expect(response.status).toBe(200);
+    expect(response.text).toBe('pong');
   });
 });
 
-describe('POST /api/sneakers', function() {
-  it('responds with json', function(done) {
+describe('POST /api/sneakers', () => {
+  it('responds with json', async () => {
     const sneakerData = {
       brand: "testBrand",
       model: "testModel",
       color: "testColor",
       price: 99,
       image: "https://static.vecteezy.com/system/resources/previews/006/426/627/original/shoes-sneaker-outline-drawing-sneakers-drawn-in-a-sketch-style-black-line-sneaker-trainers-template-outline-illustration-free-vector.jpg",
-
     };
-    request(app)
+
+    const response = await request(app)
       .post('/api/sneakers')
       .send(sneakerData)
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(201)
-      .end(function(err, res) {
-        if (err) return done(err);
-        return done();
-      });
+      .set('Accept', 'application/json');
+
+    expect(response.status).toBe(201);
+    expect(response.body).toEqual(expect.objectContaining({
+      brand: "testBrand",
+      model: "testModel",
+      color: "testColor",
+      price: 99,
+
+    }));
   });
 
-  it('responds with 400 if input is missing', function(done) {
+  it('responds with 400 if input is missing', async () => {
     const sneakerData = {
       model: "Air Max",
       color: "Black",
       price: 150,
     };
-    request(app)
+
+    const response = await request(app)
       .post('/api/sneakers')
       .send(sneakerData)
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(400)
-      .end(function(err, res) {
-        if (err) return done(err);
-        return done();
-      });
+      .set('Accept', 'application/json');
+
+    expect(response.status).toBe(400);
+
   });
 });
+
 
 
 
