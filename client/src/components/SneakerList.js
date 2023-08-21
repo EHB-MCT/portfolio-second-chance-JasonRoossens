@@ -8,11 +8,12 @@ function SneakerList() {
     model: '',
     color: '',
     price: 0,
-    image: '', // Add image property
+    image: '',
   });
   const [filterBrand, setFilterBrand] = useState('');
   const [filterColor, setFilterColor] = useState('');
   const [sortPrice, setSortPrice] = useState('desc');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:7001/api/sneakers')
@@ -35,7 +36,13 @@ function SneakerList() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // Perform API call to create a new sneaker
+    setError(null); // Reset previous errors
+
+    if (!newSneaker.brand || !newSneaker.model || !newSneaker.color || newSneaker.price < 0) {
+      setError('Please fill in all required fields and provide a valid price.');
+      return;
+    }
+
     fetch('http://localhost:7001/api/sneakers', {
       method: 'POST',
       headers: {
@@ -43,7 +50,12 @@ function SneakerList() {
       },
       body: JSON.stringify(newSneaker),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to create sneaker');
+        }
+        return response.json();
+      })
       .then(createdSneaker => {
         setSneakers(prevSneakers => [...prevSneakers, createdSneaker]);
         setNewSneaker({
@@ -51,11 +63,12 @@ function SneakerList() {
           model: '',
           color: '',
           price: 0,
-          image: '', // Reset image field
+          image: '',
         });
       })
       .catch(error => {
         console.error('Error creating sneaker:', error);
+        setError('Failed to create sneaker. Please try again later.');
       });
   };
 
@@ -92,19 +105,19 @@ function SneakerList() {
       <h2 className="create-title">Add a sneaker to your collection</h2>
       <form className="create-form" onSubmit={handleSubmit}>
         <label>
-          Brand:
+          Brand*:
           <input type="text" name="brand" value={newSneaker.brand} onChange={handleInputChange} />
         </label>
         <label>
-          Model:
+          Model*:
           <input type="text" name="model" value={newSneaker.model} onChange={handleInputChange} />
         </label>
         <label>
-          Color:
+          Color*:
           <input type="text" name="color" value={newSneaker.color} onChange={handleInputChange} />
         </label>
         <label>
-          Price:
+          Price*:
           <input type="number" name="price" value={newSneaker.price} onChange={handleInputChange} />
         </label>
         <label>
@@ -113,6 +126,7 @@ function SneakerList() {
         </label>
         <button className="create-button" type="submit">Add Sneaker</button>
       </form>
+      {error && <p className="error-message">{error}</p>}
       <h2 className="sneaker-list-title">My Sneaker Collection</h2>
       <div className="filter-sort-container">
         <div className="filter-container">

@@ -133,3 +133,7 @@
     height: auto; /* Automatically adjust height to maintain aspect ratio */
     margin: auto;
   }
+
+  .error-message{
+    color: red;
+  }
