@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../assets/styles/SneakerList.css'; // Import your CSS file
+import '../assets/styles/sneakerList.css'; // Import your CSS file
 
 function SneakerList() {
   const [sneakers, setSneakers] = useState([]);
