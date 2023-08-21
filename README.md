@@ -1,10 +1,13 @@
 # My Ultimate Sneaker Collection
+
+My Ultimate Sneaker Collection is a webapp where you can keep track off you sneaker collection. Simply add you sneakers with the form. (if you want to add an image to your sneaker you need to get a link of an image online. for example: https://image.jpg)
+
 ## Installation
 
 1. Install [Docker](https://docs.docker.com/engine/install/) or [Docker Desktop](https://docs.docker.com/desktop/)
 2. Install [Docker Compose](https://docs.docker.com/compose/install/)
 3. Download this folder as a .zip file.
-4. Remove TEMPLATE from TEMPLATE.env to create the .env file inside the server directory.
+4. Rename `TEMPLATE.env` to `.env` within the `server` directory. Fill in `PORT` and `DB_URI` values.
 5. Run the following commands inside this folder:
 
 ```bash
@@ -26,6 +29,7 @@ All sneakers
 http://localhost:7001/api/sneakers
 ```
 
+- GET
 Sneaker by id
 ```
 http://localhost:7001/api/sneakers/{id}
@@ -54,7 +58,17 @@ My Ultimate Sneaker Collection
 ```
 http://localhost:3000
 ```
-## Used services
+
+## Testing
+
+```
+cd server
+```
+```
+npm test
+```
+
+## Used technologies
 
 - Client: React
 - Server: Node, Express, MongoDB
@@ -81,3 +95,9 @@ http://localhost:3000
 - react-router-dom
 - react-scripts
 - web-vitals
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue to discuss the changes you'd like to make.
+## licence
+  This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/)
