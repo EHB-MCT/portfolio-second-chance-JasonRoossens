@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../assets/styles/sneakerList.css'; // Import your CSS file
+import '../assets/styles/sneakerList.css';
 
 function SneakerList() {
   const [sneakers, setSneakers] = useState([]);
@@ -75,7 +75,6 @@ function SneakerList() {
   const handleDelete = id => {
     const confirmDelete = window.confirm('Are you sure you want to delete this sneaker?');
     if (confirmDelete) {
-      // Perform API call to delete a sneaker
       fetch(`http://localhost:7001/api/sneakers/${id}`, {
         method: 'DELETE',
       })

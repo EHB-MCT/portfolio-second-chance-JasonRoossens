@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 7001;
-const connectDB = require('./config/db'); // Import the database connection function
+const connectDB = require('./config/db');
 const sneakerRoutes = require('./routes/sneakerRoute');
 
 // Middleware setup
