@@ -62,6 +62,8 @@ http://localhost:3000
 
 ## Testing
 
+If you want to test make sure you stop your docker containers. 
+
 ```
 cd server
 ```
