@@ -23,10 +23,12 @@ describe('GET /ping', function() {
 describe('POST /api/sneakers', function() {
   it('responds with json', function(done) {
     const sneakerData = {
-      brand: "Nike",
-      model: "Air Max",
-      color: "Black",
-      price: 150,
+      brand: "testBrand",
+      model: "testModel",
+      color: "testColor",
+      price: 99,
+      image: "https://static.vecteezy.com/system/resources/previews/006/426/627/original/shoes-sneaker-outline-drawing-sneakers-drawn-in-a-sketch-style-black-line-sneaker-trainers-template-outline-illustration-free-vector.jpg",
+
     };
     request(app)
       .post('/api/sneakers')
